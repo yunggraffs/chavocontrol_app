@@ -5,11 +5,11 @@ class Movimiento {
 
   // Atributos
   int? movimientoId;
-  String nombre;
-  double importe;
-  String? descripcion;
-  DateTime fecha;
-  late List<Categoria> categorias;
+  final String nombre;
+  final double importe;
+  final String? descripcion;
+  final DateTime fecha;
+  final List<Categoria> categorias;
 
   // Constructor con ID
   Movimiento({
@@ -18,6 +18,7 @@ class Movimiento {
     required this.importe,
     required this.descripcion,
     required this.fecha,
+    required this.categorias
   });
 
   // Constructor sin ID
@@ -26,6 +27,7 @@ class Movimiento {
     required this.importe,
     required this.descripcion,
     required this.fecha,
+    required this.categorias
   }) {
     movimientoId = null; // El ID es nulo porque es un objeto nuevo
   }
