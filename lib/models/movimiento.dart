@@ -1,4 +1,5 @@
 import 'package:intl/intl.dart';
+import 'categoria.dart';
 
 class Movimiento {
 
@@ -6,9 +7,9 @@ class Movimiento {
   int? movimientoId;
   String nombre;
   double importe;
-  String descripcion;
+  String? descripcion;
   DateTime fecha;
-  //late List<Categoria> categorias;
+  late List<Categoria> categorias;
 
   // Constructor con ID
   Movimiento({
