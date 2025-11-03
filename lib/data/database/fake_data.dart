@@ -5,7 +5,7 @@ import '../../models/movimiento.dart';
 class FakeData {
 
   // Atributos
-  List<Categoria> kFakeCategorias = [
+  static final List<Categoria> kFakeCategorias = [
     Categoria(id: 1, nombre: "Comida"),
     Categoria(id: 2, nombre: "Tranasporte"),
     Categoria(id: 3, nombre: "Hogar"),
@@ -13,14 +13,14 @@ class FakeData {
     Categoria(id: 5, nombre: "Ingresos"),
   ];
 
-  List<Movimiento> kFrakeMovimientos = [
+  static final List<Movimiento> kFrakeMovimientos = [
     Movimiento(
         movimientoId: 1,
         nombre: "Mercadona",
         importe: -100,
         descripcion: null,
         fecha: DateTime.now(),
-        categorias: ["Comida"]
+        categorias: [kFakeCategorias[0]]
     ),
     Movimiento(
         movimientoId: 2,
@@ -28,7 +28,7 @@ class FakeData {
         importe: -18.35,
         descripcion: "Tren a Barcelona",
         fecha: DateTime.now(),
-        categorias: ["Transporte"]
+        categorias: [kFakeCategorias[1]]
     ),
     Movimiento(
         movimientoId: 3,
@@ -36,7 +36,7 @@ class FakeData {
         importe: 1432.55,
         descripcion: null,
         fecha: DateTime.now(),
-        categorias: ["Ingresos"]
+        categorias: [kFakeCategorias[5]]
     ),
     Movimiento(
         movimientoId: 4,
@@ -44,7 +44,7 @@ class FakeData {
         importe: 120,
         descripcion: "Factura de la Luz",
         fecha: DateTime.now(),
-        categorias: ["Hogar", "Facturas"]
+        categorias: [kFakeCategorias[3], kFakeCategorias[2]]
     ),
   ];
 }

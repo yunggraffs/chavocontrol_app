@@ -1,12 +1,12 @@
 class Categoria {
 
   // Atributos
-  int id;
-  String nombre;
+  final int? id;
+  final String nombre;
 
   // Constructor
-  Categoria({
-    required this.id,
+  const Categoria({
+    this.id,
     required this.nombre
   });
 }
