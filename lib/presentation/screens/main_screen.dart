@@ -1,3 +1,5 @@
+import 'package:chavocontrol_app/config/app_colors.dart';
+import 'package:chavocontrol_app/presentation/widgets/custom_appbar.dart';
 import 'package:flutter/material.dart';
 
 class MainScreen extends StatelessWidget {
@@ -6,12 +8,13 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Aplicación Principal."),
-      ),
-      body: const Center(
-        child: Text("Bienvenido a Chavo Control"),
-      ),
+      appBar: CustomAppbar(),
+      body: Container(
+        color: AppColors.primary,
+        child: Center(
+          child: Text("Bienvenido a ChavoControl"),
+        ),
+      )
     );
   }
 }
