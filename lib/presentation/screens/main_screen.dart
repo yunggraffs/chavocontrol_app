@@ -20,9 +20,9 @@ class _MainScreenState extends State<MainScreen> {
     _PlaceholderScreen(title: 'Inicio', color: AppColors.primary),                  // Índice 0: Home
     _PlaceholderScreen(title: 'Lista de Movimientos', color: Colors.blueGrey),     // Índice 1: Movimientos (Lateral)
     _PlaceholderScreen(title: 'Módulo: Crear Movimiento', color: Colors.green),    // Índice 2: Acción Movimiento (Central Action)
-    _PlaceholderScreen(title: 'Lista de Categorías', color: Colors.teal),          // Índice 3: Categorías (Lateral)
-    _PlaceholderScreen(title: 'Perfil de Usuario', color: Colors.deepPurple),      // Índice 4: Perfil
-    _PlaceholderScreen(title: 'Módulo: Crear Categoría', color: Colors.amber),     // Índice 5: Acción Categoría (Central Action)
+    _PlaceholderScreen(title: 'Módulo: Crear Categoría', color: Colors.amber),     // Índice 3: Acción Categoría (Central Action)
+    _PlaceholderScreen(title: 'Lista de Categorías', color: Colors.teal),          // Índice 4: Categorías (Lateral)
+    _PlaceholderScreen(title: 'Perfil de Usuario', color: Colors.deepPurple),      // Índice 5: Perfil
   ];
 
   // Función para manejar el toque del ítem y actualizar el estado

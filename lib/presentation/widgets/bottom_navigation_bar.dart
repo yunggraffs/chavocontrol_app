@@ -140,8 +140,8 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
                   _buildLateralButton(Icons.home_outlined, 0),
                   _buildLateralButton(Icons.compare_arrows_sharp, 1),
                   const SizedBox(width: 60), // Espacio para el botón central
-                  _buildLateralButton(Icons.label_outline_sharp, 3),
-                  _buildLateralButton(Icons.person_outline, 4),
+                  _buildLateralButton(Icons.label_outline_sharp, 4),
+                  _buildLateralButton(Icons.person_outline, 5),
                 ],
               ),
             ),
@@ -158,7 +158,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
                 children: [
                   _buildActionButton("Movimiento", 2),
                   const SizedBox(width: 20),
-                  _buildActionButton("Categoría", 5),
+                  _buildActionButton("Categoría", 3),
                 ],
               ),
             ),
