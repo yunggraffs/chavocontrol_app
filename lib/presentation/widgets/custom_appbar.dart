@@ -17,8 +17,9 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return Container(
       color: AppColors.primaryTopBottom,
-      // Aplicamos un SafeArea únicamente arriba y abajo
+      // Aplicamos un SafeArea únicamente arriba
       child: SafeArea(
+        bottom: false,
         left: false,
         right: false,
         // Definimos el layout
