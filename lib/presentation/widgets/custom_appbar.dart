@@ -5,64 +5,72 @@ import 'package:flutter/material.dart';
 class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppbar({super.key});
 
+  // Atributos
+  static const Color primaryAppBar = Colors.white;
+  static const double columnWidth = 70;
+
   // Propiedad requerida: Define la altura total de la AppBar
   @override
-  Size get preferredSize => const Size.fromHeight(80.0);
+  Size get preferredSize => const Size.fromHeight(60);
 
   @override
   Widget build(BuildContext context) {
-    // Obtener el ancho de la pantalla
-    final double screenWith = MediaQuery
-        .of(context)
-        .size
-        .width;
-    // Definir el ancho de las tres columnas
-    final double columnWith = screenWith / 3;
-
     return Container(
       color: AppColors.primaryTopBottom,
-      // SafeArea para no solapar la barra de notificaciones
+      // Aplicamos un SafeArea únicamente arriba y abajo
       child: SafeArea(
+        left: false,
+        right: false,
+        // Definimos el layout
         child: Row(
           children: <Widget>[
-
-            // Icono de menú
-            SizedBox(
-              width: columnWith,
+            // ------ Icono de Menú (Izquierda)
+            Container(
+              width: columnWidth,
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    // Lógica para abrir el menú
+                  },
                   icon: const Icon(
-                      Icons.menu_rounded,
-                      color: AppColors.primary,
-                      size: 40
+                    Icons.menu_rounded,
+                    color: primaryAppBar,
+                    size: 40,
                   ),
                 ),
               ),
             ),
 
-            // Imagen de la app
-            SizedBox(
-              width: columnWith,
+            // ------ Imagen de la App (Centro)
+            // 'Expanded' ocupará el espacio sobrante en el medio
+            Expanded(
+              // 'Center' lo centrará dentro de ese espacio sobrante
               child: Center(
                 child: Image.asset(
                   "assets/images/Icon_ChavoControlT.png",
                   width: 50,
+                  // Añadimos un fallback por si la imagen no carga
+                  errorBuilder: (context, error, stackTrace) => const Icon(
+                    Icons.shield_moon,
+                    size: 50,
+                    color: primaryAppBar,
+                  ),
                 ),
               ),
             ),
 
-            // Botón de perfil
-            SizedBox(
-              width: columnWith,
+            // ------ Botón de Perfil (Derecha)
+            // Usamos el mismo ancho fijo que la izquierda para garantizar
+            // que el logo 'Expanded' esté perfectamente centrado
+            Container(
+              width: columnWidth,
               child: Align(
-                alignment: Alignment.centerRight,
                 child: Padding(
                   padding: const EdgeInsets.only(right: 10),
-                  child: const CircleAvatar(
+                  child: CircleAvatar(
                     backgroundColor: Colors.white30,
-                    child: Icon(
+                    child: const Icon(
                       Icons.person,
                       color: Colors.black12,
                     ),
