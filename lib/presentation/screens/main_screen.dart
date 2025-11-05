@@ -45,10 +45,8 @@ class _MainScreenState extends State<MainScreen> {
       // Aquí está la integración del CustomBottomNavigationBar
       bottomNavigationBar: CustomBottomNavigationBar(
         // Le pasamos el índice actual. Usamos 0, 1, 3, o 4 para resaltar los íconos laterales.
-        // Si el índice es 2 o 5 (acciones), mostramos el Home (0) como "seleccionado" por defecto
-        // o el último lateral seleccionado, para no resaltar un ícono lateral incorrecto.
-        // Aquí optamos por una lógica simple: si es acción, usamos el 0 (Home).
-        selectedIndex: (_selectedIndex == 2 || _selectedIndex == 5) ? 0 : _selectedIndex,
+        // Si el índice es 2 o 5 (acciones), no mostramos ningúno como seleccionado.
+        selectedIndex: _selectedIndex,
         onItemTapped: _onItemTapped,
       ),
     );
