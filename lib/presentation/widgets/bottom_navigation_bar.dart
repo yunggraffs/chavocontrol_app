@@ -1,6 +1,8 @@
+import 'package:chavocontrol_app/data/database/fake_data.dart';
 import 'package:flutter/material.dart';
 
 import '../../config/app_colors.dart';
+import 'movimiento_form_modal.dart';
 
 class CustomBottomNavigationBar extends StatefulWidget {
   final int selectedIndex;
@@ -25,7 +27,15 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
     return Expanded(
       child: InkWell(
         onTap: () {
-          widget.onItemTapped(index);
+          showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (BuildContext context) {
+              return MovimientoFormModal(
+                categoriasDisponibles: FakeData.kFakeCategorias,
+              );
+            },
+          );
         },
         child: Container(
           padding: const EdgeInsets.all(8.0),
