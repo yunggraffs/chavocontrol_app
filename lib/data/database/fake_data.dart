@@ -12,75 +12,19 @@ class FakeData {
     Categoria(id: 5, nombre: "Ingresos"),
   ];
 
-  // Lista de 10 Movimientos: 2 Ingresos (+) y 8 Gastos (-)
+  // Lista de 10 Movimientos: ORDENADOS POR FECHA (MÁS NUEVO PRIMERO)
   static final List<Movimiento> kFakeMovimientos = [
-    // 1. Gasto (Igual)
-    Movimiento(
-        movimientoId: 1,
-        nombre: "Mercadona",
-        importe: -100.00,
-        descripcion: "Compra semanal de alimentos",
-        fecha: DateTime.now().subtract(const Duration(days: 2)),
-        categorias: [kFakeCategorias[0]]
-    ),
-    // 2. Gasto (Igual)
-    Movimiento(
-        movimientoId: 2,
-        nombre: "Tren",
-        importe: -18.35,
-        descripcion: "Tren a Barcelona",
-        fecha: DateTime.now().subtract(const Duration(days: 1)),
-        categorias: [kFakeCategorias[1]]
-    ),
-    // 3. Ingreso (Igual - Nómina)
+
+    // 1. Nómina (Ingreso - Hoy)
     Movimiento(
         movimientoId: 3,
         nombre: "Nómina",
         importe: 1432.55,
         descripcion: "Sueldo mensual",
-        fecha: DateTime.now(),
+        fecha: DateTime.now(), // La fecha más reciente
         categorias: [kFakeCategorias[4]]
     ),
-    // 4. Gasto (Igual)
-    Movimiento(
-        movimientoId: 4,
-        nombre: "Luz",
-        importe: -120.00,
-        descripcion: "Factura de la Luz",
-        fecha: DateTime.now().subtract(const Duration(days: 3)),
-        categorias: [kFakeCategorias[3], kFakeCategorias[2]]
-    ),
-
-    // --- NUEVOS MOVIMIENTOS ---
-
-    // 5. Gasto (Cena fuera)
-    Movimiento(
-        movimientoId: 5,
-        nombre: "Cena Restaurante",
-        importe: -45.70,
-        descripcion: "Sushi con amigos",
-        fecha: DateTime.now().subtract(const Duration(days: 5)),
-        categorias: [kFakeCategorias[0]]
-    ),
-    // 6. Gasto (Telefonía - Factura nueva)
-    Movimiento(
-        movimientoId: 6,
-        nombre: "Móvil",
-        importe: -35.90,
-        descripcion: "Factura de fibra y móvil",
-        fecha: DateTime.now().subtract(const Duration(days: 10)),
-        categorias: [kFakeCategorias[3]]
-    ),
-    // 7. Gasto (Transporte - Gasolina)
-    Movimiento(
-        movimientoId: 7,
-        nombre: "Gasolina",
-        importe: -65.00,
-        descripcion: "Llenado de depósito",
-        fecha: DateTime.now().subtract(const Duration(days: 4)),
-        categorias: [kFakeCategorias[1]]
-    ),
-    // 8. Ingreso (Bizum - El segundo ingreso)
+    // 2. Bizum Amigo (Ingreso - Hace 5 horas)
     Movimiento(
         movimientoId: 8,
         nombre: "Bizum Amigo",
@@ -89,16 +33,52 @@ class FakeData {
         fecha: DateTime.now().subtract(const Duration(hours: 5)),
         categorias: [kFakeCategorias[4]]
     ),
-    // 9. Gasto (Hogar - Alquiler/Hipoteca)
+    // 3. Tren (Gasto - Hace 1 día)
     Movimiento(
-        movimientoId: 9,
-        nombre: "Alquiler",
-        importe: -750.00,
-        descripcion: "Pago mensual de vivienda",
-        fecha: DateTime.now().subtract(const Duration(days: 15)),
-        categorias: [kFakeCategorias[2], kFakeCategorias[3]]
+        movimientoId: 2,
+        nombre: "Tren",
+        importe: -18.35,
+        descripcion: "Tren a Barcelona",
+        fecha: DateTime.now().subtract(const Duration(days: 1)),
+        categorias: [kFakeCategorias[1]]
     ),
-    // 10. Gasto (Ocio/Suscripción - Nuevo)
+    // 4. Mercadona (Gasto - Hace 2 días)
+    Movimiento(
+        movimientoId: 1,
+        nombre: "Mercadona",
+        importe: -100.00,
+        descripcion: "Compra semanal de alimentos",
+        fecha: DateTime.now().subtract(const Duration(days: 2)),
+        categorias: [kFakeCategorias[0]]
+    ),
+    // 5. Luz (Gasto - Hace 3 días)
+    Movimiento(
+        movimientoId: 4,
+        nombre: "Luz",
+        importe: -120.00,
+        descripcion: "Factura de la Luz",
+        fecha: DateTime.now().subtract(const Duration(days: 3)),
+        categorias: [kFakeCategorias[3], kFakeCategorias[2]]
+    ),
+    // 6. Gasolina (Gasto - Hace 4 días)
+    Movimiento(
+        movimientoId: 7,
+        nombre: "Gasolina",
+        importe: -65.00,
+        descripcion: "Llenado de depósito",
+        fecha: DateTime.now().subtract(const Duration(days: 4)),
+        categorias: [kFakeCategorias[1]]
+    ),
+    // 7. Cena Restaurante (Gasto - Hace 5 días)
+    Movimiento(
+        movimientoId: 5,
+        nombre: "Cena Restaurante",
+        importe: -45.70,
+        descripcion: "Sushi con amigos",
+        fecha: DateTime.now().subtract(const Duration(days: 5)),
+        categorias: [kFakeCategorias[0]]
+    ),
+    // 8. Netflix (Gasto - Hace 7 días)
     Movimiento(
         movimientoId: 10,
         nombre: "Netflix",
@@ -106,6 +86,24 @@ class FakeData {
         descripcion: "Suscripción mensual",
         fecha: DateTime.now().subtract(const Duration(days: 7)),
         categorias: [kFakeCategorias[3]]
+    ),
+    // 9. Móvil (Gasto - Hace 10 días)
+    Movimiento(
+        movimientoId: 6,
+        nombre: "Móvil",
+        importe: -35.90,
+        descripcion: "Factura de fibra y móvil",
+        fecha: DateTime.now().subtract(const Duration(days: 10)),
+        categorias: [kFakeCategorias[3]]
+    ),
+    // 10. Alquiler (Gasto - Hace 15 días)
+    Movimiento(
+        movimientoId: 9,
+        nombre: "Alquiler",
+        importe: -750.00,
+        descripcion: "Pago mensual de vivienda",
+        fecha: DateTime.now().subtract(const Duration(days: 15)),
+        categorias: [kFakeCategorias[2], kFakeCategorias[3]]
     ),
   ];
 

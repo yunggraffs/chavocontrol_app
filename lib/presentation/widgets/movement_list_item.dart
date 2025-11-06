@@ -55,7 +55,8 @@ class MovementListItem extends StatelessWidget {
                     decoration: BoxDecoration(
                       border: Border.all(color: Colors.black, width: 1.0),
                       borderRadius: BorderRadius.circular(20.0),
-                      color: isIncome ? Colors.green.withOpacity(0.1) : Colors.red.withOpacity(0.1),
+                      // Usar withAlpha en lugar de withOpacity para evitar deprecation warning
+                      color: isIncome ? Colors.green.withAlpha(255 * 0.1 ~/ 1) : Colors.red.withAlpha(255 * 0.1 ~/ 1),
                     ),
                     child: Icon(arrowIcon, color: arrowColor, size: 24),
                   ),
@@ -94,6 +95,9 @@ class MovementListItem extends StatelessWidget {
                     ),
                   ),
 
+                  // AÑADIMOS ESTE ESPACIO PARA SEPARAR EL IMPORTE DEL BOTÓN
+                  const SizedBox(width: 8.0), // <-- AUMENTA ESTE VALOR PARA MÁS SEPARACIÓN
+
                   // Botón de opciones (3 puntos)
                   Container(
                     decoration: BoxDecoration(
@@ -104,7 +108,7 @@ class MovementListItem extends StatelessWidget {
                       icon: const Icon(Icons.more_horiz, color: Colors.black),
                       onPressed: () {
                         // Lógica para mostrar opciones de editar/eliminar
-                        print('Opciones para ${movimiento.nombre}');
+                        // Eliminado print() para evitar la advertencia
                       },
                       padding: EdgeInsets.zero,
                       constraints: const BoxConstraints(minWidth: 40, minHeight: 40), // Le damos un tamaño mínimo decente

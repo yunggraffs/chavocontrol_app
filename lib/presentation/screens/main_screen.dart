@@ -3,6 +3,7 @@ import 'package:chavocontrol_app/presentation/widgets/custom_appbar.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/bottom_navigation_bar.dart';
+import 'main_body.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
