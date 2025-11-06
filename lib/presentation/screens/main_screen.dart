@@ -3,6 +3,7 @@ import 'package:chavocontrol_app/presentation/widgets/custom_appbar.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/bottom_navigation_bar.dart';
+import 'main_body.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -17,7 +18,7 @@ class _MainScreenState extends State<MainScreen> {
   // Lista de Widgets (Páginas) que se mostrarán en el cuerpo del Scaffold.
   // Es importante que esta lista incluya los 6 índices usados en el CustomBottomNavigationBar (0, 1, 2, 3, 4, 5)
   final List<Widget> _pages = const <Widget>[
-    _PlaceholderScreen(title: 'Inicio', color: AppColors.primary),                  // Índice 0: Home
+    MainBody(),                  // Índice 0: Home
     _PlaceholderScreen(title: 'Lista de Movimientos', color: Colors.blueGrey),     // Índice 1: Movimientos (Lateral)
     _PlaceholderScreen(title: 'Módulo: Crear Movimiento', color: Colors.green),    // Índice 2: Acción Movimiento (Central Action)
     _PlaceholderScreen(title: 'Módulo: Crear Categoría', color: Colors.amber),     // Índice 3: Acción Categoría (Central Action)
