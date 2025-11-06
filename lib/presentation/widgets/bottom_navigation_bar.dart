@@ -20,7 +20,7 @@ class CustomBottomNavigationBar extends StatefulWidget {
 class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
   static const double _iconSize = 33.0;
 
-  // Construye el botón central ADD/CLOSE
+  // Construye el botón central
   Widget _buildCentralButton(int index) {
     return Expanded(
       child: InkWell(
