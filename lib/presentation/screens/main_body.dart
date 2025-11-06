@@ -19,6 +19,7 @@ class MainBody extends StatelessWidget {
     // 2. Contenedor exterior para definir el borde.
     return Container(
       padding: const EdgeInsets.all(8.0),
+      margin: const EdgeInsets.all(8),
       decoration: BoxDecoration(
         color: Colors.transparent,
         borderRadius: BorderRadius.circular(borderRadius),
