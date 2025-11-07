@@ -1,4 +1,5 @@
 import 'package:chavocontrol_app/config/app_colors.dart';
+import 'package:chavocontrol_app/presentation/screens/category_body.dart';
 import 'package:chavocontrol_app/presentation/widgets/custom_appbar.dart';
 import 'package:flutter/material.dart';
 
@@ -21,8 +22,7 @@ class _MainScreenState extends State<MainScreen> {
     MainBody(),                  // Índice 0: Home
     _PlaceholderScreen(title: 'Lista de Movimientos', color: Colors.blueGrey),     // Índice 1: Movimientos (Lateral)
     _PlaceholderScreen(title: 'Módulo: Crear Movimiento', color: Colors.green),    // Índice 2: Acción Movimiento (Central Action)
-    _PlaceholderScreen(title: 'Módulo: Crear Categoría', color: Colors.amber),     // Índice 3: Acción Categoría (Central Action)
-    _PlaceholderScreen(title: 'Lista de Categorías', color: Colors.teal),          // Índice 4: Categorías (Lateral)
+    CategoryBody(),     // Índice 3: Acción Categoría (Central Action)
     _PlaceholderScreen(title: 'Perfil de Usuario', color: Colors.deepPurple),      // Índice 5: Perfil
   ];
 
