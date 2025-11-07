@@ -1,12 +1,25 @@
+import 'package:chavocontrol_app/config/app_colors.dart';
 import 'package:chavocontrol_app/models/categoria.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+const Color _campoFondo = Color(0x80FFFFFF); // Fondo sutilmente oscuro
+const Color _campoBorde = Colors.black; // Borde claro
+const Color _campoTexto = Colors.black; // Texto principal
+const Color _campoIconos = AppColors.primaryTopBottom; // Iconos
+const Color _campoResaltado =
+    AppColors.primaryTopBottom; // Color al estar enfocado
+const Color _cursorColor = AppColors.primaryTopBottom; // Color del cursor
+const Color _botonesTexto =
+    AppColors.primaryTopBottom; // Color del texto del botón de 'Cancelar'
+const Color _botonPrincipal =
+    AppColors.primaryTopBottom; // Color principal del botón de 'Guardar'
 
 class MovimientoFormModal extends StatefulWidget {
   final List<Categoria> categoriasDisponibles;
 
   const MovimientoFormModal({Key? key, required this.categoriasDisponibles})
-      : super(key: key);
+    : super(key: key);
 
   @override
   State<MovimientoFormModal> createState() => _MovimientoFormModalState();
@@ -41,63 +54,158 @@ class _MovimientoFormModalState extends State<MovimientoFormModal> {
   Future<void> _seleccionarCategorias() async {
     List<Categoria> tempSeleccionadas = List.from(_categoriasSeleccionadas);
 
+    // Definición del estilo de Input para los campos de texto
+    final inputDecorationTheme = InputDecorationTheme(
+      // Color de fondo del campo
+      filled: true,
+      fillColor: _campoFondo,
+
+      // Borde del campo
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(4),
+        borderSide: BorderSide(color: _campoBorde, width: 1),
+      ),
+
+      // Borde cuando está seleccionado (enfocado)
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(4),
+        borderSide: BorderSide(color: _campoResaltado, width: 2),
+      ),
+
+      // Borde cuando no está habilitado
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(4),
+        borderSide: BorderSide(color: _campoBorde, width: 1),
+      ),
+
+      // Color de los iconos del campo (prefixIcon, suffixIcon)
+      prefixIconColor: _campoIconos,
+      suffixIconColor: _campoIconos,
+
+      // Color del texto del campo (labelText, hintText, helperText)
+      labelStyle: const TextStyle(color: _campoTexto),
+      hintStyle: TextStyle(color: _campoTexto.withOpacity(0.6)),
+      helperStyle: TextStyle(color: _campoTexto.withOpacity(0.6)),
+
+      // 5. Color resaltado (del labelText) cuando está enfocado
+      floatingLabelStyle: TextStyle(
+        color: _campoResaltado,
+        fontWeight: FontWeight.bold,
+      ),
+    );
+
     final resultado = await showDialog<List<Categoria>>(
-        context: context,
-        builder: (BuildContext) {
-          return StatefulBuilder(
-              builder: (context, setStateDialog) {
-                return AlertDialog(
-                  title: const Text("Seleccionar Categorías"),
-                  content: SizedBox(
-                    width: double.maxFinite,
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: widget.categoriasDisponibles.length,
-                      itemBuilder: (context, index) {
-                        final categoria = widget.categoriasDisponibles[index];
-                        final isSelected = tempSeleccionadas.contains(
-                            categoria);
+      context: context,
+      builder: (BuildContext dialogContext) { // Usamos dialogContext para el Theme.of
+        // 1. Aplicamos un Theme al AlertDialog
+        return Theme(
+          // Heredamos el tema principal y lo modificamos para el AlertDialog
+          data: Theme.of(dialogContext).copyWith(
+            // Color de los Checkbox, RadioButtons, etc. (usa el color de resaltado)
+            checkboxTheme: CheckboxThemeData(
+              fillColor: MaterialStateProperty.resolveWith<Color?>(
+                    (Set<MaterialState> states) {
+                  if (states.contains(MaterialState.selected)) {
+                    // Cuando está seleccionado, el fondo es el color de resaltado (el marrón)
+                    return _campoResaltado;
+                  }
+                  // Cuando NO está seleccionado:
+                  // Retornamos null para que el cuadrado sea transparente
+                  return null;
+                },
+              ),
+              side: MaterialStateBorderSide.resolveWith(
+                    (Set<MaterialState> states) {
+                  // Si no está seleccionado (o cualquier otro estado que no sea error/deshabilitado),
+                  // aplicamos un borde negro (_campoBorde).
+                  if (!states.contains(MaterialState.selected)) {
+                    return const BorderSide(color: _campoBorde, width: 2.0);
+                  }
+                  return null; // El borde es manejado por el 'fillColor' cuando está seleccionado.
+                },
+              ),
+            ),
+            // Estilo de los TextButton dentro del AlertDialog (Cancelar, Limpiar)
+            textButtonTheme: TextButtonThemeData(
+              style: TextButton.styleFrom(
+                foregroundColor: _botonesTexto,
+              ),
+            ),
+            // Estilo del ElevatedButton (Aceptar)
+            elevatedButtonTheme: ElevatedButtonThemeData(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: _botonPrincipal,
+                foregroundColor: Colors.white,
+                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+              ),
+            ),
+          ),
+          child: StatefulBuilder(
+            builder: (context, setStateDialog) {
+              return AlertDialog(
+                // 2. Aplicamos colores al AlertDialog
+                backgroundColor: AppColors.primary, // Fondo sutilmente oscuro
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  side: const BorderSide(color: _campoBorde, width: 1), // Borde negro
+                ),
+                title: const Text(
+                  "Seleccionar Categorías",
+                  style: TextStyle(color: _campoTexto, fontWeight: FontWeight.bold),
+                ),
+                content: SizedBox(
+                  width: double.maxFinite,
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: widget.categoriasDisponibles.length,
+                    itemBuilder: (context, index) {
+                      final categoria = widget.categoriasDisponibles[index];
+                      final isSelected = tempSeleccionadas.contains(categoria);
 
-                        return CheckboxListTile(
-                          title: Text(categoria.nombre),
-                          value: isSelected,
-                          onChanged: (bool? value) {
-                            setStateDialog(() {
-                              if (value == true) {
-                                tempSeleccionadas.add(categoria);
-                              } else {
-                                tempSeleccionadas.remove(categoria);
-                              }
-                            });
-                          },
-                        );
-                      },
-                    ),
-                  ),
-                  actions: [
-                    TextButton(
-                      onPressed: () => Navigator.of(context).pop(null),
-                      child: const Text("Cancelar"),
-                    ),
-
-                    TextButton(
-                        onPressed: () {
+                      return CheckboxListTile(
+                        // 3. Aplicamos color al texto de las opciones
+                        title: Text(
+                          categoria.nombre,
+                          style: const TextStyle(color: _campoTexto),
+                        ),
+                        value: isSelected,
+                        onChanged: (bool? value) {
                           setStateDialog(() {
-                            tempSeleccionadas.clear();
+                            if (value == true) {
+                              tempSeleccionadas.add(categoria);
+                            } else {
+                              tempSeleccionadas.remove(categoria);
+                            }
                           });
                         },
-                        child: const Text("Limpiar"),
-                    ),
-
-                    ElevatedButton(
-                        onPressed: () => Navigator.of(context).pop(tempSeleccionadas),
-                        child: const Text("Aceptar"),
-                    ),
-                  ],
-                );
-              },
-          );
-        },
+                        checkColor: Colors.white,
+                      );
+                    },
+                  ),
+                ),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.of(context).pop(null),
+                    child: const Text("Cancelar"),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      setStateDialog(() {
+                        tempSeleccionadas.clear();
+                      });
+                    },
+                    child: const Text("Limpiar"),
+                  ),
+                  ElevatedButton(
+                    onPressed: () => Navigator.of(context).pop(tempSeleccionadas),
+                    child: const Text("Aceptar"),
+                  ),
+                ],
+              );
+            },
+          ),
+        );
+      },
     );
 
     if (resultado != null) {
@@ -111,13 +219,10 @@ class _MovimientoFormModalState extends State<MovimientoFormModal> {
   Widget _buildCategoriasChips() {
     if (_categoriasSeleccionadas.isEmpty) {
       return const Padding(
-          padding: EdgeInsets.symmetric(vertical: 8),
+        padding: EdgeInsets.symmetric(vertical: 8),
         child: Text(
-            "No hay categorías seleccionadas",
-          style: TextStyle(
-            color: Colors.grey,
-            fontStyle: FontStyle.italic,
-          ),
+          "No hay categorías seleccionadas",
+          style: TextStyle(color: Colors.grey, fontStyle: FontStyle.italic),
         ),
       );
     }
@@ -141,172 +246,220 @@ class _MovimientoFormModalState extends State<MovimientoFormModal> {
 
   @override
   Widget build(BuildContext context) {
-    return Dialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
+    // Definición del estilo de Input para los campos de texto
+    final inputDecorationTheme = InputDecorationTheme(
+      // Color de fondo del campo
+      filled: true,
+      fillColor: _campoFondo,
+
+      // Borde del campo
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(4),
+        borderSide: BorderSide(color: _campoBorde, width: 1),
       ),
+
+      // Borde cuando está seleccionado (enfocado)
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(4),
+        borderSide: BorderSide(color: _campoResaltado, width: 2),
+      ),
+
+      // Borde cuando no está habilitado
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(4),
+        borderSide: BorderSide(color: _campoBorde, width: 1),
+      ),
+
+      // Color de los iconos del campo (prefixIcon, suffixIcon)
+      prefixIconColor: _campoIconos,
+      suffixIconColor: _campoIconos,
+
+      // Color del texto del campo (labelText, hintText, helperText)
+      labelStyle: const TextStyle(color: _campoTexto),
+      hintStyle: TextStyle(color: _campoTexto.withOpacity(0.6)),
+      helperStyle: TextStyle(color: _campoTexto.withOpacity(0.6)),
+
+      // 5. Color resaltado (del labelText) cuando está enfocado
+      floatingLabelStyle: TextStyle(
+        color: _campoResaltado,
+        fontWeight: FontWeight.bold,
+      ),
+    );
+
+    return Dialog(
+      backgroundColor: AppColors.primary,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       elevation: 16,
-      child: Container(
-        constraints: const BoxConstraints(
-          maxWidth: 500,
-          maxHeight: 700,
+      // Aplicamos el Theme al contenido del modal
+      child: Theme(
+        data: Theme.of(context).copyWith(
+          inputDecorationTheme: inputDecorationTheme,
+
+          textSelectionTheme: TextSelectionThemeData(
+            cursorColor: _cursorColor,
+            selectionColor: _cursorColor.withOpacity(0.4),
+            selectionHandleColor: _cursorColor,
+          ),
+
+          textButtonTheme: TextButtonThemeData(
+            style: TextButton.styleFrom(foregroundColor: _botonesTexto),
+          ),
+
+          elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: _botonPrincipal,
+              foregroundColor: Colors.white,
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+            ),
+          ),
         ),
-        padding: const EdgeInsets.all(24),
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              // Header
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    "Nuevo Movimiento",
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
+        child: Container(
+          padding: const EdgeInsets.all(24),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                // Header
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      "Nuevo Movimiento",
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: _campoTexto,
+                      ),
+                    ),
+                  ],
+                ),
+
+                // Campo: Nombre
+                TextFormField(
+                  style: const TextStyle(color: _campoTexto),
+                  decoration: const InputDecoration(
+                    labelText: 'Nombre *',
+                    hintText: 'Ej: Compra supermercado',
+                    prefixIcon: Icon(Icons.label),
+                  ),
+                  textCapitalization: TextCapitalization.sentences,
+                ),
+
+                const SizedBox(height: 16),
+
+                // Campo: Importe
+                TextFormField(
+                  style: const TextStyle(color: _campoTexto),
+                  decoration: const InputDecoration(
+                    labelText: 'Importe *',
+                    hintText: '0.00',
+                    prefixIcon: Icon(Icons.euro),
+                    suffixText: '€',
+                  ),
+                  keyboardType: const TextInputType.numberWithOptions(
+                    decimal: true,
+                  ),
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(
+                      RegExp(r'^-?\d*\.?\d{0,2}'),
+                    ),
+                  ],
+                ),
+
+                const SizedBox(height: 16),
+
+                // Campo: Fecha (con DatePicker funcional)
+                InkWell(
+                  onTap: _seleccionarFecha,
+                  borderRadius: BorderRadius.circular(4),
+                  child: InputDecorator(
+                    decoration: const InputDecoration(
+                      labelText: 'Fecha *',
+                      prefixIcon: Icon(Icons.calendar_today),
+                      suffixIcon: Icon(Icons.arrow_drop_down),
+                    ),
+                    child: Text(
+                      '${_fecha.day.toString().padLeft(2, '0')}/${_fecha.month.toString().padLeft(2, '0')}/${_fecha.year}',
+                      style: const TextStyle(fontSize: 16, color: _campoTexto),
                     ),
                   ),
-                  IconButton(
-                      icon: const Icon(Icons.close),
-                    onPressed: () => Navigator.of(context).pop(),
-                    tooltip: "Cerrar",
-                  ),
-                ],
-              ),
-
-              // Campo: Nombre
-              TextFormField(
-                decoration: const InputDecoration(
-                  labelText: 'Nombre *',
-                  hintText: 'Ej: Compra supermercado',
-                  prefixIcon: Icon(Icons.label),
-                  border: OutlineInputBorder(),
                 ),
-                textCapitalization: TextCapitalization.sentences,
-              ),
 
-              const SizedBox(height: 16),
+                const SizedBox(height: 16),
 
-              // Campo: Importe
-              TextFormField(
-                decoration: const InputDecoration(
-                  labelText: 'Importe *',
-                  hintText: '0.00',
-                  prefixIcon: Icon(Icons.euro),
-                  suffixText: '€',
-                  border: OutlineInputBorder(),
-                ),
-                keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                inputFormatters: [
-                  FilteringTextInputFormatter.allow(RegExp(r'^-?\d*\.?\d{0,2}')),
-                ],
-              ),
-
-              const SizedBox(height: 16),
-
-              // Campo: Fecha (con DatePicker funcional)
-              InkWell(
-                onTap: _seleccionarFecha,
-                borderRadius: BorderRadius.circular(4),
-                child: InputDecorator(
-                  decoration: const InputDecoration(
-                    labelText: 'Fecha *',
-                    prefixIcon: Icon(Icons.calendar_today),
-                    border: OutlineInputBorder(),
-                    suffixIcon: Icon(Icons.arrow_drop_down),
-                  ),
-                  child: Text(
-                    '${_fecha.day.toString().padLeft(2, '0')}/${_fecha.month.toString().padLeft(2, '0')}/${_fecha.year}',
-                    style: const TextStyle(fontSize: 16),
-                  ),
-                ),
-              ),
-
-              const SizedBox(height: 16),
-
-              // Campo: Categorías (con selector funcional)
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  InkWell(
-                    onTap: _seleccionarCategorias,
-                    borderRadius: BorderRadius.circular(4),
-                    child: InputDecorator(
-                      decoration: const InputDecoration(
-                        labelText: 'Categorías',
-                        prefixIcon: Icon(Icons.category),
-                        border: OutlineInputBorder(),
-                        suffixIcon: Icon(Icons.arrow_drop_down),
-                      ),
-                      child: Text(
-                        _categoriasSeleccionadas.isEmpty
-                            ? 'Seleccionar categorías'
-                            : '${_categoriasSeleccionadas.length} seleccionada(s)',
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: _categoriasSeleccionadas.isEmpty
-                              ? Colors.grey.shade600
-                              : Colors.black87,
+                // Campo: Categorías (con selector funcional)
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    InkWell(
+                      onTap: _seleccionarCategorias,
+                      borderRadius: BorderRadius.circular(4),
+                      child: InputDecorator(
+                        decoration: const InputDecoration(
+                          labelText: 'Categorías',
+                          prefixIcon: Icon(Icons.category),
+                          suffixIcon: Icon(Icons.arrow_drop_down),
+                        ),
+                        child: Text(
+                          _categoriasSeleccionadas.isEmpty
+                              ? 'Seleccionar categorías'
+                              : '${_categoriasSeleccionadas.length} seleccionada(s)',
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: _categoriasSeleccionadas.isEmpty
+                                ? _campoTexto.withOpacity(0.6)
+                                : _campoTexto,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  const SizedBox(height: 8),
-                  _buildCategoriasChips(),
-                ],
-              ),
-
-              const SizedBox(height: 16),
-
-              // Campo: Descripción
-              TextFormField(
-                decoration: const InputDecoration(
-                  labelText: 'Descripción',
-                  hintText: 'Información adicional...',
-                  prefixIcon: Icon(Icons.notes),
-                  border: OutlineInputBorder(),
-                  helperText: 'Opcional',
+                    const SizedBox(height: 8),
+                    _buildCategoriasChips(),
+                  ],
                 ),
-                maxLines: 3,
-                textCapitalization: TextCapitalization.sentences,
-              ),
 
-              const SizedBox(height: 24),
+                const SizedBox(height: 16),
 
-              // Botones de acción
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  TextButton(
-                    onPressed: () => Navigator.of(context).pop(),
-                    child: const Text('Cancelar'),
+                // Campo: Descripción
+                TextFormField(
+                  decoration: const InputDecoration(
+                    labelText: 'Descripción',
+                    hintText: 'Información adicional...',
+                    prefixIcon: Icon(Icons.notes),
+                    helperText: 'Opcional',
                   ),
-                  const SizedBox(width: 12),
-                  ElevatedButton.icon(
-                    onPressed: () {
-                      // Por ahora solo cierra el modal
-                      // TODO: Implementar guardado cuando tengamos backend
-                      Navigator.of(context).pop();
-                    },
-                    icon: const Icon(Icons.save),
-                    label: const Text('Guardar'),
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 24,
-                        vertical: 12,
-                      ),
+                  maxLines: 3,
+                  textCapitalization: TextCapitalization.sentences,
+                ),
+
+                const SizedBox(height: 24),
+
+                // Botones de acción
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    TextButton(
+                      onPressed: () => Navigator.of(context).pop(),
+                      child: const Text('Cancelar'),
                     ),
-                  ),
-                ],
-              ),
-            ],
+                    const SizedBox(width: 12),
+                    ElevatedButton.icon(
+                      onPressed: () {
+                        // Por ahora solo cierra el modal
+                        // TODO: Implementar guardado cuando tengamos backend
+                        Navigator.of(context).pop();
+                      },
+                      icon: const Icon(Icons.save),
+                      label: const Text('Guardar'),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
     );
   }
 }
-
-
