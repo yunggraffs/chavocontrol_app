@@ -106,7 +106,6 @@ class MovementListItem extends StatelessWidget {
                     icon: const Icon(Icons.more_horiz, color: Colors.black),
                     onPressed: () {
                       // Lógica para mostrar opciones de editar/eliminar
-                      // Eliminado print() para evitar la advertencia
                     },
                     padding: EdgeInsets.zero,
                     constraints: const BoxConstraints(minWidth: 40, minHeight: 40), // Le damos un tamaño mínimo decente

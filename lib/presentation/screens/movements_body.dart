@@ -20,7 +20,7 @@ class MovementsBody extends StatelessWidget {
           // Barra de busqueda
           const CategorySearchBar(),
 
-          // Lista de movimientos
+          // Lista de Movimientos
           Expanded(
             child: ListView.builder(
               itemCount: movimientos.length,
