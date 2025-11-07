@@ -23,7 +23,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
   static const double _iconSize = 33.0;
 
   // Construye el botón central
-  Widget _buildCentralButton(int index) {
+  Widget _buildCentralButton() {
     return Expanded(
       child: InkWell(
         onTap: () {
@@ -96,16 +96,16 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
             child: _buildLateralButton(Icons.compare_arrows_sharp, 1),
           ),
           // ------ Icono Añadir
-          SizedBox(width: columnWidth, child: _buildCentralButton(2)),
+          SizedBox(width: columnWidth, child: _buildCentralButton()),
           // ------ Icono Categorías
           SizedBox(
             width: columnWidth,
-            child: _buildLateralButton(Icons.label_outline_sharp, 3),
+            child: _buildLateralButton(Icons.label_outline_sharp, 2),
           ),
           // ------ Icono Usuario
           SizedBox(
             width: columnWidth,
-            child: _buildLateralButton(Icons.person_outline, 4),
+            child: _buildLateralButton(Icons.person_outline, 3),
           ),
         ],
       ),

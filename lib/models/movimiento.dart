@@ -1,4 +1,3 @@
-import 'package:intl/intl.dart';
 import 'categoria.dart';
 
 class Movimiento {
