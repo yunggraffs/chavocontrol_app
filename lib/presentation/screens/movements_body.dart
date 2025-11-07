@@ -26,7 +26,7 @@ class MovementsBody extends StatelessWidget {
               itemCount: movimientos.length,
               itemBuilder: (context, index) {
                 final movimiento = movimientos[index];
-                return MovementListItem(movimiento: movimiento);
+                return MovementListItem(movimiento: movimiento, isEditable: true,);
               },
             ),
           ),

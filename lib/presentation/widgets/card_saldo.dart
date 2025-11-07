@@ -25,17 +25,16 @@ class CardSaldo extends StatelessWidget {
     return Card(
       margin: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 8.0),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(25.0),
+        borderRadius: BorderRadius.circular(8.0),
         side: const BorderSide(
           color: Colors.black,
-          width: 2.0,
+          width: 1.5,
         ),
       ),
       color: Colors.white,
-      elevation: 0,
 
       child: Container(
-        height: 150,
+        height: 120,
         width: double.infinity,
         padding: const EdgeInsets.all(16.0),
         alignment: Alignment.center,
