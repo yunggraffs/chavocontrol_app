@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart'; // Importamos la librería para formateo de moneda
 import 'package:chavocontrol_app/models/movimiento.dart';
 
+import '../../config/app_colors.dart';
+
 class MovementListItem extends StatelessWidget {
   final Movimiento movimiento;
 
@@ -35,8 +37,9 @@ class MovementListItem extends StatelessWidget {
       child: Container(
         // Contenedor para simular el borde negro alrededor del item
         decoration: BoxDecoration(
-          border: Border.all(color: Colors.black, width: 1.0),
+          border: Border.all(color: Colors.black, width: 1.5),
           borderRadius: BorderRadius.circular(8.0),
+          color: Colors.white,
         ),
 
         child: Padding(
@@ -99,20 +102,14 @@ class MovementListItem extends StatelessWidget {
                   const SizedBox(width: 8.0), // <-- AUMENTA ESTE VALOR PARA MÁS SEPARACIÓN
 
                   // Botón de opciones (3 puntos)
-                  Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.black, width: 1.0),
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    child: IconButton(
-                      icon: const Icon(Icons.more_horiz, color: Colors.black),
-                      onPressed: () {
-                        // Lógica para mostrar opciones de editar/eliminar
-                        // Eliminado print() para evitar la advertencia
-                      },
-                      padding: EdgeInsets.zero,
-                      constraints: const BoxConstraints(minWidth: 40, minHeight: 40), // Le damos un tamaño mínimo decente
-                    ),
+                  IconButton(
+                    icon: const Icon(Icons.more_horiz, color: Colors.black),
+                    onPressed: () {
+                      // Lógica para mostrar opciones de editar/eliminar
+                      // Eliminado print() para evitar la advertencia
+                    },
+                    padding: EdgeInsets.zero,
+                    constraints: const BoxConstraints(minWidth: 40, minHeight: 40), // Le damos un tamaño mínimo decente
                   ),
                 ],
               ),

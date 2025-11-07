@@ -9,42 +9,28 @@ import '../widgets/movement_list_item.dart';
 class MovementsBody extends StatelessWidget {
   const MovementsBody({super.key});
 
-  static const double borderRadius = 20.0;
-
   @override
   Widget build(BuildContext context) {
     final List<Movimiento> movimientos = FakeData.kFakeMovimientos;
 
     return Container(
-      padding: const EdgeInsets.all(8.0),
-      margin: const EdgeInsets.all(8),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(borderRadius),
-      ),
+      color: AppColors.containerBackground,
+      child: Column(
+        children: [
+          // Barra de busqueda
+          const CategorySearchBar(),
 
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(borderRadius),
-        child: Container(
-          color: AppColors.containerBackground,
-          child: Column(
-            children: [
-              // Barra de busqueda
-              const CategorySearchBar(),
-
-              // Lista de movimientos
-              Expanded(
-                child: ListView.builder(
-                  itemCount: movimientos.length,
-                  itemBuilder: (context, index) {
-                    final movimiento = movimientos[index];
-                    return MovementListItem(movimiento: movimiento);
-                  },
-                ),
-              ),
-            ],
+          // Lista de movimientos
+          Expanded(
+            child: ListView.builder(
+              itemCount: movimientos.length,
+              itemBuilder: (context, index) {
+                final movimiento = movimientos[index];
+                return MovementListItem(movimiento: movimiento);
+              },
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
