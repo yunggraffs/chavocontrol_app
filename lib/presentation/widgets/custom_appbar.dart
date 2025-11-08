@@ -26,7 +26,7 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
         child: Row(
           children: <Widget>[
             // ------ Icono de Menú (Izquierda)
-            Container(
+            SizedBox(
               width: columnWidth,
               child: Align(
                 alignment: Alignment.centerLeft,
@@ -64,7 +64,7 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
             // ------ Botón de Perfil (Derecha)
             // Usamos el mismo ancho fijo que la izquierda para garantizar
             // que el logo 'Expanded' esté perfectamente centrado
-            Container(
+            SizedBox(
               width: columnWidth,
               child: Align(
                 child: Padding(

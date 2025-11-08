@@ -73,25 +73,29 @@ class MovementListItem extends StatelessWidget {
                   const SizedBox(width: 12),
 
                   // Nombre del movimiento (y opcionalmente la fecha en una columna)
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        movimiento.nombre,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
+                  // Usamos Flexible para que el texto se adapte
+                  Flexible(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // Nombre
+                        Text(
+                          movimiento.nombre,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
                         ),
-                      ),
-                      // Opcional: Mostrar la fecha debajo del nombre
-                      Text(
-                        dateText,
-                        style: const TextStyle(
-                          fontSize: 12,
-                          color: Colors.black87,
+                        // Fecha
+                        Text(
+                          dateText,
+                          style: const TextStyle(
+                            fontSize: 12,
+                            color: Colors.black87,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ],
               ),
