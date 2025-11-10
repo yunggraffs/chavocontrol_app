@@ -27,7 +27,7 @@ class MainBody extends StatelessWidget {
           // ZONA SCROLLABLE
           Expanded(
             child: ListView.builder(
-              itemCount: 6,
+              itemCount: movimientos.length > 6 ? 6 : movimientos.length,
               itemBuilder: (context, index) {
                 final movimiento = movimientos[index];
                 return MovementListItem(movimiento: movimiento, isEditable: false,);

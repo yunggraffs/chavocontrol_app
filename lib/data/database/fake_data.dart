@@ -36,7 +36,7 @@ class FakeData {
     // 3. Mercadona (Gasto - Hace 2 días)
     Movimiento(
       movimientoId: 1,
-      nombre: "Mercadona",
+      nombre: "Mercadonaaaaaaaaaaaaaaaaaa",
       importe: -100.00,
       descripcion: "Compra semanal de alimentos",
       fecha: DateTime.now().subtract(const Duration(days: 2)),

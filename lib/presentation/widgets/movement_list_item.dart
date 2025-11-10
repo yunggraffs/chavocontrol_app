@@ -49,91 +49,69 @@ class MovementListItem extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              // --- PARTE IZQUIERDA: Flecha + Nombre ---
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  // Contenedor de la Flecha
-                  Container(
-                    width: 40,
-                    height: 40,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.black, width: 1.0),
-                      borderRadius: BorderRadius.circular(20.0),
-                      // Usar withAlpha en lugar de withOpacity para evitar deprecation warning
-                      color: isIncome
-                          ? Colors.green.withAlpha(255 * 0.1 ~/ 1)
-                          : Colors.red.withAlpha(255 * 0.1 ~/ 1),
-                    ),
-                    child: Icon(arrowIcon, color: arrowColor, size: 24),
-                  ),
-
-                  const SizedBox(width: 12),
-
-                  // Nombre del movimiento (y opcionalmente la fecha en una columna)
-                  // Usamos Flexible para que el texto se adapte
-                  Flexible(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        // Nombre
-                        Text(
-                          movimiento.nombre,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                          ),
-                        ),
-                        // Fecha
-                        Text(
-                          dateText,
-                          style: const TextStyle(
-                            fontSize: 12,
-                            color: Colors.black87,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-
-              // --- PARTE DERECHA: Importe + Opciones ---
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  // Importe del movimiento
-                  Container(
-                    padding: EdgeInsets.only(right: 10),
-                    child: Text(
-                      amountText,
-                      // Usa el importe formateado, con el signo ya incluido
-                      style: TextStyle(
-                        color: arrowColor,
+              Container(
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.black, width: 1.0),
+                  borderRadius: BorderRadius.circular(20.0),
+                  // Usar withValues en lugar de withOpacity para evitar deprecation warning
+                  color: isIncome
+                      ? Colors.green.withValues(alpha: 0.1)
+                      :  Colors.green.withValues(alpha: 0.1),
+                ),
+                child: Icon(arrowIcon, color: arrowColor, size: 24),
+              ),             // Flecha: 40px fijo
+              const SizedBox(width: 12),  // Espacio: 12px fijo
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Nombre
+                    Text(
+                      movimiento.nombre,
+                      style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 16,
                       ),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
                     ),
-                  ),
-
-                  // Botón de opciones (3 puntos)
-                  // Solo aparece si isEditable = true
-                  if (isEditable) ...[
-                    IconButton(
-                      icon: const Icon(Icons.more_horiz, color: Colors.black),
-                      onPressed: () {
-                        // Lógica para mostrar opciones de editar/eliminar
-                      },
-                      constraints: const BoxConstraints(
-                        minWidth: 40,
-                        minHeight: 40,
-                      ), // Le damos un tamaño mínimo decente
+                    // Fecha
+                    Text(
+                      dateText,
+                      style: const TextStyle(
+                        fontSize: 12,
+                        color: Colors.black87,
+                      ),
                     ),
                   ],
-                ],
-              ),
+                ),
+              ),              // Nombre: El espacio restante
+              const SizedBox(width: 8),   // Espacio: 8px fijo
+              Text(
+                amountText,
+                // Usa el importe formateado, con el signo ya incluido
+                style: TextStyle(
+                  color: arrowColor,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                ),
+              ),                  // Importe: Se adapta
+              if (isEditable)
+                SizedBox(width: 8,),      // Espacio: 8px fijo
+              if (isEditable)
+                IconButton(
+                  icon: const Icon(Icons.more_horiz, color: Colors.black),
+                  onPressed: () {
+                    // Lógica para mostrar opciones de editar/eliminar
+                  },
+                  constraints: const BoxConstraints(
+                    minWidth: 40,
+                    minHeight: 40,
+                  ), // Le damos un tamaño mínimo decente
+                ),          // Botón: ~40px fijo
             ],
           ),
         ),
