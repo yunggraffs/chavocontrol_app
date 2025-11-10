@@ -43,7 +43,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
           shape: BoxShape.circle,
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.3),
+              color: Colors.black..withValues(alpha: 0.3),
               blurRadius: 6,
               offset: const Offset(0, 3),
             ),

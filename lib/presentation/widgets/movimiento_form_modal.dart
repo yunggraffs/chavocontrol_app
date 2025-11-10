@@ -18,8 +18,7 @@ const Color _botonPrincipal =
 class MovimientoFormModal extends StatefulWidget {
   final List<Categoria> categoriasDisponibles;
 
-  const MovimientoFormModal({Key? key, required this.categoriasDisponibles})
-    : super(key: key);
+  const MovimientoFormModal({super.key, required this.categoriasDisponibles});
 
   @override
   State<MovimientoFormModal> createState() => _MovimientoFormModalState();
@@ -54,46 +53,6 @@ class _MovimientoFormModalState extends State<MovimientoFormModal> {
   Future<void> _seleccionarCategorias() async {
     List<Categoria> tempSeleccionadas = List.from(_categoriasSeleccionadas);
 
-    // Definición del estilo de Input para los campos de texto
-    final inputDecorationTheme = InputDecorationTheme(
-      // Color de fondo del campo
-      filled: true,
-      fillColor: _campoFondo,
-
-      // Borde del campo
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(4),
-        borderSide: BorderSide(color: _campoBorde, width: 1),
-      ),
-
-      // Borde cuando está seleccionado (enfocado)
-      focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(4),
-        borderSide: BorderSide(color: _campoResaltado, width: 2),
-      ),
-
-      // Borde cuando no está habilitado
-      enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(4),
-        borderSide: BorderSide(color: _campoBorde, width: 1),
-      ),
-
-      // Color de los iconos del campo (prefixIcon, suffixIcon)
-      prefixIconColor: _campoIconos,
-      suffixIconColor: _campoIconos,
-
-      // Color del texto del campo (labelText, hintText, helperText)
-      labelStyle: const TextStyle(color: _campoTexto),
-      hintStyle: TextStyle(color: _campoTexto.withOpacity(0.6)),
-      helperStyle: TextStyle(color: _campoTexto.withOpacity(0.6)),
-
-      // 5. Color resaltado (del labelText) cuando está enfocado
-      floatingLabelStyle: TextStyle(
-        color: _campoResaltado,
-        fontWeight: FontWeight.bold,
-      ),
-    );
-
     final resultado = await showDialog<List<Categoria>>(
       context: context,
       builder: (BuildContext dialogContext) { // Usamos dialogContext para el Theme.of
@@ -103,9 +62,9 @@ class _MovimientoFormModalState extends State<MovimientoFormModal> {
           data: Theme.of(dialogContext).copyWith(
             // Color de los Checkbox, RadioButtons, etc. (usa el color de resaltado)
             checkboxTheme: CheckboxThemeData(
-              fillColor: MaterialStateProperty.resolveWith<Color?>(
-                    (Set<MaterialState> states) {
-                  if (states.contains(MaterialState.selected)) {
+              fillColor: WidgetStateProperty.resolveWith<Color?>(
+                    (Set<WidgetState> states) {
+                  if (states.contains(WidgetState.selected)) {
                     // Cuando está seleccionado, el fondo es el color de resaltado (el marrón)
                     return _campoResaltado;
                   }
@@ -114,11 +73,11 @@ class _MovimientoFormModalState extends State<MovimientoFormModal> {
                   return null;
                 },
               ),
-              side: MaterialStateBorderSide.resolveWith(
-                    (Set<MaterialState> states) {
+              side: WidgetStateBorderSide.resolveWith(
+                    (Set<WidgetState> states) {
                   // Si no está seleccionado (o cualquier otro estado que no sea error/deshabilitado),
                   // aplicamos un borde negro (_campoBorde).
-                  if (!states.contains(MaterialState.selected)) {
+                  if (!states.contains(WidgetState.selected)) {
                     return const BorderSide(color: _campoBorde, width: 2.0);
                   }
                   return null; // El borde es manejado por el 'fillColor' cuando está seleccionado.
@@ -276,8 +235,8 @@ class _MovimientoFormModalState extends State<MovimientoFormModal> {
 
       // Color del texto del campo (labelText, hintText, helperText)
       labelStyle: const TextStyle(color: _campoTexto),
-      hintStyle: TextStyle(color: _campoTexto.withOpacity(0.6)),
-      helperStyle: TextStyle(color: _campoTexto.withOpacity(0.6)),
+      hintStyle: TextStyle(color: _campoTexto.withValues(alpha: 0.6)),
+      helperStyle: TextStyle(color: _campoTexto.withValues(alpha: 0.6)),
 
       // 5. Color resaltado (del labelText) cuando está enfocado
       floatingLabelStyle: TextStyle(
@@ -297,7 +256,7 @@ class _MovimientoFormModalState extends State<MovimientoFormModal> {
 
           textSelectionTheme: TextSelectionThemeData(
             cursorColor: _cursorColor,
-            selectionColor: _cursorColor.withOpacity(0.4),
+            selectionColor: _cursorColor.withValues(alpha: 0.4),
             selectionHandleColor: _cursorColor,
           ),
 
@@ -408,7 +367,7 @@ class _MovimientoFormModalState extends State<MovimientoFormModal> {
                           style: TextStyle(
                             fontSize: 16,
                             color: _categoriasSeleccionadas.isEmpty
-                                ? _campoTexto.withOpacity(0.6)
+                                ? _campoTexto.withValues(alpha: 0.6)
                                 : _campoTexto,
                           ),
                         ),
